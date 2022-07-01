@@ -1,26 +1,9 @@
 const request = require("supertest");
-const jwt = require("jsonwebtoken");
-const mongoose = require("mongoose");
 const app = require("../src/app");
 const User = require("../src/models/user");
+const { userOneId, userOne, setupDatabase} = require("./fixtures/db");
 
-const userOneId = new mongoose.Types.ObjectId();
-const userOne = {
-    _id: userOneId,
-    name: "Piara",
-    email: "piararm@example.com",
-    password: "torontoRaptors123%%",
-    tokens: [
-        {
-            token: jwt.sign({ _id: userOneId }, process.env.JWT_SECRET)
-        }
-    ]
-}
-
-beforeEach(async () => {
-    await User.deleteMany(); //wipes db
-    await new User(userOne).save(); //save user to db
-})
+beforeEach(setupDatabase);
 
 test("Should Signup New User", async () => {
     const response = await request(app).post("/users").send({
@@ -31,7 +14,6 @@ test("Should Signup New User", async () => {
 
     // Assert that the db was changed correctly
     // new user with same id as the id we are getting back as response body
-
     const user = await User.findById(response.body.user._id);
     expect(user).not.toBeNull();
 
