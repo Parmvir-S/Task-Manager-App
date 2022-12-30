@@ -43,7 +43,7 @@ The main motivation behind the development of the Task Manager API was to create
 
 One issue that I encountered while building the Task Manager API was the challenge of integrating MongoDB and Mongoose into the project. Ensuring that the database is properly connected and that the data is being stored and retrieved correctly can be complex, especially for those who are new to these technologies.
 
-## Potential Accomplishments
+## Accomplishments
 
 By building the Task Manager API, I achieved a number of accomplishments, including:
 
